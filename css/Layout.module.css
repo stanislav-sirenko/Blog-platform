@@ -1,0 +1,46 @@
+@font-face {
+  font-family: "Coffe";
+  src: url("../../assets/fonts/Coffe-Break.ttf");
+}
+body {
+  margin: 0;
+  padding: 0;
+  font-family: "Coffe";
+}
+body header {
+  font-family: "Coffe";
+  height: 80px;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 18px;
+}
+body header a {
+  font-size: 18px;
+  text-decoration: none;
+  color: rgba(0, 0, 0, 0.85);
+  border: none;
+  background-color: #fff;
+  width: 120px;
+  cursor: pointer;
+  margin: 15px 15px;
+  padding: 15px 20px;
+  transition: 0.7s;
+  border-radius: 5px;
+}
+body header a:hover {
+  border: 0.5px solid #52c41a;
+  border-radius: 5px;
+  color: #52c41a;
+  transition: 0.7s;
+}
+body main {
+  background-color: #ebeef3;
+  width: 100%;
+  min-height: 100vh;
+  margin: 0;
+  padding-top: 50px;
+  font-family: "Coffe";
+  text-align: -webkit-center;
+}

@@ -1,0 +1,13 @@
+@font-face {
+  font-family: "Doloman";
+  src: url("../assets/fonts/DolomanPavljenko.ttf");
+}
+@font-face {
+  font-family: "Coffe";
+  src: url("../assets/fonts/PartridgeCondensedThin.ttf");
+}
+body {
+  margin: 0;
+  padding: 0;
+  font-family: "Coffe";
+}
