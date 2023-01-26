@@ -19,16 +19,26 @@ const initialState: UserState = {
   update: false,
 }
 
-// const _defaultPath = 'https://blog.kata.academy/api'
-
 function isError(action: AnyAction) {
   return action.type.endsWith('rejected')
 }
 
 const userSlice = createSlice({
-  name: 'articles',
+  name: 'user',
   initialState,
-  reducers: {},
+  reducers: {
+    logOut(state) {
+      localStorage.removeItem('token')
+      state.user = {
+        email: '',
+        token: '',
+        username: '',
+        bio: '',
+        image: '',
+      }
+      state.isAuth = false
+    },
+  },
   extraReducers: (builder) => {
     builder
       .addCase(fetchRegistrationUser.pending, (state) => {
@@ -43,6 +53,7 @@ const userSlice = createSlice({
       .addCase(fetchAuthorizationUser.pending, (state) => {
         state.status = true
         state.error = ''
+        state.isAuth = false
       })
       .addCase(fetchAuthorizationUser.fulfilled, (state, action) => {
         state.user = action.payload.user
@@ -55,5 +66,7 @@ const userSlice = createSlice({
       })
   },
 })
+
+export const { logOut } = userSlice.actions
 
 export default userSlice.reducer
