@@ -1,7 +1,7 @@
 import { createAsyncThunk } from '@reduxjs/toolkit'
 
 import { ArticlesState } from '../../interfaces/article'
-import { UserState, PostDataCreateUser, PostDataLoginUser } from '../../interfaces/user'
+import { UserState, PostDataCreateUser, PostDataLoginUser, PostDataUpdateUser } from '../../interfaces/user'
 
 const _defaultPath = 'https://blog.kata.academy/api'
 
@@ -66,7 +66,47 @@ export const fetchAuthorizationUser = createAsyncThunk<UserState, PostDataLoginU
     }
     const result = await response.json()
     !localStorage.getItem('token') && localStorage.setItem('token', result.user.token)
+    return result
+  }
+)
+
+export const fetchUpdateUser = createAsyncThunk<UserState, PostDataUpdateUser, { rejectValue: string }>(
+  'user/fetchUpdateUser',
+  async (validData, { rejectWithValue }) => {
+    console.log(validData)
+    const token = localStorage.getItem('token')
+    const response = await fetch(`${_defaultPath}/user`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify(validData),
+    })
+    if (!response.ok) {
+      return rejectWithValue('You must be logged in to access this page')
+    }
+    const result = await response.json()
+    localStorage.setItem('token', result.user.token)
     console.log(result)
     return result
+  }
+)
+
+export const fetchGetCurrentUser = createAsyncThunk<UserState, undefined, { rejectValue: string }>(
+  'user/fetchGetCurrentUser',
+  async (_, { rejectWithValue }) => {
+    const token = localStorage.getItem('token')
+    const response = await fetch(`${_defaultPath}/user`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
+    })
+    if (!response.ok) {
+      return rejectWithValue('')
+    }
+    return await response.json()
   }
 )

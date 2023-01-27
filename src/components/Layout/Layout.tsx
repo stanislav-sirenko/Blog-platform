@@ -12,6 +12,7 @@ const Layout: React.FC = () => {
   const dispatch = useAppDispatch()
   const { isAuth } = useAppSelector((state) => state.user)
   const { username, image } = useAppSelector((state) => state.user.user)
+  console.log(isAuth)
   return (
     <>
       <header>
@@ -38,7 +39,11 @@ const Layout: React.FC = () => {
           <div className={classes['is-login']}>
             <Link to="/profile" className={classes['profile']}>
               <span>{username}</span>
-              <img className={classes['avatar']} src={image || defaultAvatar} alt="avatar" />
+              <img
+                className={classes['avatar']}
+                src={image === '' ? defaultAvatar : image ?? defaultAvatar}
+                alt="avatar"
+              />
             </Link>
             <Link to="/" className={classes['log-out']} onClick={() => dispatch(logOut())}>
               Log Out

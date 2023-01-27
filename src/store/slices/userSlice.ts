@@ -2,7 +2,7 @@ import { createSlice, PayloadAction, AnyAction } from '@reduxjs/toolkit'
 
 import { UserState } from '../../interfaces/user'
 
-import { fetchRegistrationUser, fetchAuthorizationUser } from './services'
+import { fetchRegistrationUser, fetchAuthorizationUser, fetchUpdateUser, fetchGetCurrentUser } from './services'
 
 const initialState: UserState = {
   user: {
@@ -16,7 +16,7 @@ const initialState: UserState = {
   status: null,
   isReg: false,
   isAuth: false,
-  update: false,
+  isUpdate: false,
 }
 
 function isError(action: AnyAction) {
@@ -59,6 +59,19 @@ const userSlice = createSlice({
         state.user = action.payload.user
         state.status = false
         state.isAuth = true
+      })
+      .addCase(fetchUpdateUser.pending, (state) => {
+        state.status = true
+        state.error = ''
+      })
+      .addCase(fetchUpdateUser.fulfilled, (state, action) => {
+        state.user = action.payload.user
+        state.status = false
+        state.isUpdate = true
+      })
+      .addCase(fetchGetCurrentUser.fulfilled, (state, action) => {
+        state.user = action.payload.user
+        if (localStorage.getItem('token')) state.isAuth = true
       })
       .addMatcher(isError, (state, action: PayloadAction<string>) => {
         state.status = false

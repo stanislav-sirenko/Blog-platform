@@ -12,7 +12,7 @@ export interface UserState {
   status: boolean | null
   isReg: boolean
   isAuth: boolean
-  update: boolean
+  isUpdate: boolean
 }
 
 export interface PostDataCreateUser {
@@ -41,4 +41,23 @@ export interface ProfileRegistration {
 export interface ProfileAuthorization {
   email: string
   password: string
+}
+
+export interface Profile {
+  email: string
+  password: string
+  username: string
+  bio: string
+  image: string
+  avatar: string
+}
+
+export interface PostDataUpdateUser {
+  user: {
+    email?: string
+    password?: string
+    username?: string
+    bio?: string
+    image?: string
+  }
 }

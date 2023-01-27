@@ -10,7 +10,7 @@
     max-width: 350px;
     padding: 50px 30px;
 
-    .sign-up {
+    .edit {
       font-size: 20px;
       font-weight: 600;
       margin-top: 9px;
@@ -37,6 +37,11 @@
 
     .error {
       color: tomato;
+      font-size: 14px;
+    }
+
+    .success {
+      color: green;
       font-size: 14px;
     }
 

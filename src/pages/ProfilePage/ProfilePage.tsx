@@ -1,51 +1,52 @@
 import { useEffect } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import { useForm } from 'react-hook-form'
 import { ThreeDots } from 'react-loader-spinner'
 
-import { fetchRegistrationUser } from '../../store/slices/services'
+import { fetchUpdateUser } from '../../store/slices/services'
 import { useAppDispatch, useAppSelector } from '../../assets/hooks/hooksByTS'
-import { ProfileRegistration } from '../../interfaces/user'
+import { Profile } from '../../interfaces/user'
 
-import classes from './RegistrationPage.module.scss'
+import classes from './ProfilePage.module.scss'
 
-const RegistrationPage: React.FC = () => {
+const ProfilePage: React.FC = () => {
   const dispatch = useAppDispatch()
-  const { isReg, error, status } = useAppSelector((state) => state.user)
-  const navigate = useNavigate()
+  const { error, status, isUpdate } = useAppSelector((state) => state.user)
+  const { username, email, image } = useAppSelector((state) => state.user.user)
+
+  // const navigate = useNavigate()
   const {
     register,
     formState: { errors, isValid },
     handleSubmit,
     reset,
-    watch,
-  } = useForm<ProfileRegistration>({ mode: 'onBlur' })
+  } = useForm<Profile>({ mode: 'onBlur', defaultValues: { username, email, image: image } })
 
-  const onSubmit = (data: ProfileRegistration) => {
+  const onSubmit = (data: Profile) => {
     const validData = {
       user: {
         username: data.username,
         email: data.email.toLowerCase(),
         password: data.password,
+        image: data.avatar,
       },
     }
-    dispatch(fetchRegistrationUser(validData))
+    dispatch(fetchUpdateUser(validData))
     reset()
   }
-
-  useEffect(() => {
-    if (!isReg) {
-      navigate('/sign-up', { replace: true })
-    } else {
-      reset()
-      navigate('/sign-in', { replace: true })
-    }
-  }, [isReg])
+  // useEffect(() => {
+  //   if (isUpdate) {
+  //     // const timeout = setTimeout(() => {
+  //     navigate('/', { replace: true })
+  //     // }, 2000)
+  //     // return clearTimeout(timeout)
+  //   }
+  // }, [isUpdate])
 
   return (
     <section className={classes['container']}>
       <form className={classes['form']} onSubmit={handleSubmit(onSubmit)}>
-        <h4 className={classes['sign-up']}>Create new account</h4>
+        <h4 className={classes['edit']}>Edit Profile</h4>
 
         <label className={classes['label']}>
           Username
@@ -95,7 +96,7 @@ const RegistrationPage: React.FC = () => {
           Password
           <input
             type="password"
-            placeholder="Password"
+            placeholder="New password"
             className={classes['input']}
             {...register('password', {
               required: 'Please enter a password',
@@ -113,36 +114,22 @@ const RegistrationPage: React.FC = () => {
         <span className={classes['error']}>{errors?.password?.message} </span>
 
         <label className={classes['label']}>
-          Repeat password
+          Avatar image(url)
           <input
-            type="password"
-            placeholder="Password"
+            type="text"
+            placeholder="Avatar image"
             className={classes['input']}
-            {...register('repeatPassword', {
-              required: 'Please enter a password',
-              minLength: 6,
-              maxLength: 40,
-              validate: (value: string) => {
-                if (watch('password') !== value) {
-                  return 'Пароль должен совпадать'
-                }
+            {...register('avatar', {
+              pattern: {
+                value:
+                  /https?:\/\/(www\.)?[-a-zA-Z0-9@:%._+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_+.~#?&//=]*)/,
+                message: 'url entered incorrectly',
               },
             })}
           />
         </label>
-        <span className={classes['error']}>{errors?.repeatPassword?.message} </span>
 
-        <div className={classes['wrap-checkbox']}>
-          <input
-            type="checkbox"
-            className={classes['checkbox']}
-            id="userAgreement"
-            {...register('userAgreement', { required: 'Agreement with terms is required' })}
-          ></input>
-          <label htmlFor="userAgreement">I agree to the processing of my personal information</label>
-        </div>
-        {errors?.userAgreement && <span className={classes.error}>{errors?.userAgreement?.message || ''}</span>}
-        <span className={classes.error}>{error ?? ''}</span>
+        <span className={classes['error']}>{error ?? ''}</span>
         <button className={classes['btn']} type="submit" disabled={!isValid}>
           {status ? (
             <ThreeDots
@@ -155,15 +142,13 @@ const RegistrationPage: React.FC = () => {
               visible={true}
             />
           ) : (
-            'Create'
+            'Save'
           )}
         </button>
-        <span className={classes['text']}>
-          Already have an account? <Link to={'/sign-in'}>Sign In.</Link>
-        </span>
+        <span className={classes['success']}>{isUpdate ? 'data updated successfully' : ''}</span>
       </form>
     </section>
   )
 }
 
-export default RegistrationPage
+export default ProfilePage
