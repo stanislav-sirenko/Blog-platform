@@ -1,4 +1,3 @@
-import { useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useForm } from 'react-hook-form'
 import { ThreeDots } from 'react-loader-spinner'
@@ -14,7 +13,7 @@ const ProfilePage: React.FC = () => {
   const { error, status, isUpdate } = useAppSelector((state) => state.user)
   const { username, email, image } = useAppSelector((state) => state.user.user)
 
-  // const navigate = useNavigate()
+  const navigate = useNavigate()
   const {
     register,
     formState: { errors, isValid },
@@ -34,14 +33,7 @@ const ProfilePage: React.FC = () => {
     dispatch(fetchUpdateUser(validData))
     reset()
   }
-  // useEffect(() => {
-  //   if (isUpdate) {
-  //     // const timeout = setTimeout(() => {
-  //     navigate('/', { replace: true })
-  //     // }, 2000)
-  //     // return clearTimeout(timeout)
-  //   }
-  // }, [isUpdate])
+  if (isUpdate) navigate('/', { replace: true })
 
   return (
     <section className={classes['container']}>

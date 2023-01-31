@@ -12,7 +12,6 @@ const Layout: React.FC = () => {
   const dispatch = useAppDispatch()
   const { isAuth } = useAppSelector((state) => state.user)
   const { username, image } = useAppSelector((state) => state.user.user)
-  console.log(isAuth)
   return (
     <>
       <header>
@@ -37,6 +36,9 @@ const Layout: React.FC = () => {
           </div>
         ) : (
           <div className={classes['is-login']}>
+            <Link to="/new-article" className={classes['create']}>
+              Create article
+            </Link>
             <Link to="/profile" className={classes['profile']}>
               <span>{username}</span>
               <img

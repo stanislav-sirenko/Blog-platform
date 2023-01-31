@@ -14,12 +14,13 @@ interface ArticleProps {
 
 const Post: React.FC<ArticleProps> = ({ article }) => {
   const { slug, title, favoritesCount, tagList, description, author, updatedAt } = article
+
   return (
     <section className={classes['card-container']}>
       <div className={classes['info-wrap']}>
         <div className={classes['wrap']}>
           <Link to={`articles/${slug}`} className={classes['title']}>
-            {title.length > 35 ? `${title.slice(0, 35)}…` : title}
+            {title?.length > 35 ? `${title.slice(0, 35)}…` : title}
           </Link>
           <div className={classes['like-container']}>
             <Space>
@@ -31,12 +32,12 @@ const Post: React.FC<ArticleProps> = ({ article }) => {
         <ul className={classes['tag-list']} style={tagList.length ? { display: 'flex' } : { display: 'none' }}>
           {tagList.map((tag: string, index: number) => (
             <li className={classes['tag']} key={index}>
-              {tag.length > 35 ? `${tag.slice(0, 35)}…` : tag}
+              {tag?.length > 35 ? `${tag.slice(0, 35)}…` : tag}
             </li>
           ))}
         </ul>
         <div className={classes['content']}>
-          {description.length > 100 ? `${description.slice(0, 100)}…` : description}
+          {description?.length > 100 ? `${description.slice(0, 100)}…` : description}
         </div>
       </div>
       <div className={classes['user-info']}>
@@ -44,7 +45,7 @@ const Post: React.FC<ArticleProps> = ({ article }) => {
           <div className={classes['nicname']}>{author.username}</div>
           <div className={classes['data']}>{format(new Date(updatedAt), 'MMMM d, yyyy')}</div>
         </div>
-        <img src={author.image ?? avatar} alt="avatar" className={classes['avatar']} />
+        <img src={author?.image ?? avatar} alt="avatar" className={classes['avatar']} />
       </div>
     </section>
   )

@@ -1,27 +1,45 @@
 import { useEffect } from 'react'
-import { useParams } from 'react-router-dom'
+import { useParams, Link, useNavigate } from 'react-router-dom'
 import { HeartTwoTone } from '@ant-design/icons'
-import { Space, Spin } from 'antd'
+import { Space, Spin, Button, Popconfirm } from 'antd'
 import { format } from 'date-fns'
 import ReactMarkdown from 'react-markdown'
 
+import { togglePage } from '../../store/slices/articleSlice'
 import { useAppDispatch, useAppSelector } from '../../assets/hooks/hooksByTS'
-import { fetchArticle } from '../../store/slices/services'
+import { fetchArticle, fetchDeleteArticle } from '../../store/slices/services'
 
 import classes from './SinglePage.module.scss'
 
 const SinglePage: React.FC = () => {
+  const { isAuth } = useAppSelector((state) => state.user)
+  const { username } = useAppSelector((state) => state.user.user)
+  const { status, deleted } = useAppSelector((state) => state.articles)
+
   const { slug } = useParams()
+  const navigate = useNavigate()
   const dispatch = useAppDispatch()
 
   useEffect(() => {
     dispatch(fetchArticle(slug))
   }, [slug])
 
+  useEffect(() => {
+    if (deleted) {
+      navigate('/', { replace: true })
+    }
+  }, [deleted])
+
   const { title, favoritesCount, tagList, body, description, author, updatedAt } = useAppSelector(
     (state) => state.articles.article
   )
-  const { status } = useAppSelector((state) => state.articles)
+
+  const confirm = () => {
+    dispatch(fetchDeleteArticle(slug))
+    dispatch(togglePage(1))
+  }
+
+  // const cancel = () => {}
 
   return (
     <>
@@ -56,6 +74,27 @@ const SinglePage: React.FC = () => {
               <div className={classes['data']}>{updatedAt && format(new Date(updatedAt), 'MMMM d, yyyy')}</div>
             </div>
             <img src={author.image} alt="avatar" className={classes['avatar']} />
+            {isAuth && username === author.username && (
+              <div className={classes['wrap-btn']}>
+                <Popconfirm
+                  placement="right"
+                  title="Delete the task"
+                  description="Are you sure to delete this task?"
+                  onConfirm={confirm}
+                  // onCancel={cancel}
+                  okText="Yes"
+                  cancelText="No"
+                >
+                  <Button type="primary" danger ghost className={classes['delete']} style={{ marginRight: '8px' }}>
+                    Delete
+                  </Button>
+                </Popconfirm>
+
+                <Link to={`/articles/${slug}/edit`} className={classes['edit']}>
+                  Edit
+                </Link>
+              </div>
+            )}
           </div>
           <div className={classes['body-content']}>
             <ReactMarkdown>{body}</ReactMarkdown>

@@ -63,6 +63,22 @@ body {
       display: flex;
       align-items: center;
 
+      .create {
+        color: #52c41a;
+        border: 1px solid #52c41a;
+        border-radius: 5px;
+        text-decoration: none;
+        padding: 10px 15px;
+        font-size: 14px;
+        transition: 1s;
+      }
+      .create:hover {
+        color: #f1b211;
+        border-color: #f1b211;
+        transition: 1s;
+        scale: 1.1;
+      }
+
       .profile {
         font-size: 18px;
         text-decoration: none;

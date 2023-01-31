@@ -6,11 +6,11 @@
   background-color: #fff;
   display: flex;
   flex-wrap: wrap;
-  justify-content: flex-start;
+  justify-content: space-between;
   box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.2);
 }
 .card-container .info-wrap {
-  width: 70%;
+  width: 75%;
 }
 .card-container .info-wrap .wrap {
   display: flex;
@@ -66,10 +66,11 @@
   overflow-wrap: anywhere;
 }
 .card-container .user-info {
-  width: 30%;
+  width: 25%;
   display: flex;
   justify-content: flex-end;
   align-items: flex-start;
+  flex-wrap: wrap;
 }
 .card-container .user-info .wrap {
   display: flex;
@@ -88,6 +89,20 @@
   max-width: 50px;
   margin-left: 15px;
   border-radius: 50%;
+}
+.card-container .user-info .wrap-btn {
+  display: inherit;
+}
+.card-container .user-info .wrap-btn .delete {
+  font-family: "coffe";
+}
+.card-container .user-info .wrap-btn .edit {
+  text-decoration: none;
+  border: 1px solid #52c41a;
+  border-radius: 5px;
+  color: #52c41a;
+  font-size: 14px;
+  padding: 8px 20px;
 }
 .card-container .body-content {
   overflow-wrap: anywhere;

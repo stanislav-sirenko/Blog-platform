@@ -40,4 +40,44 @@ export interface ArticlesState {
   error: string | null
   currentPage: number
   articlesCount: number
+  create: boolean
+  deleted: boolean
+  update: boolean
+}
+
+export interface IFormNewArticle {
+  title: string
+  titleArticle: string | undefined
+  description: string | undefined
+  body: string | undefined
+  tagList: { name: string }[] | undefined
+  slug: string | undefined
+}
+
+export interface ProfileNewArticle {
+  title: string
+  description: string
+  body: string
+  tagList: { name: string }[]
+}
+
+export interface CreateArticle {
+  article: {
+    title: string
+    description: string
+    body: string
+    tagList: string[]
+  }
+}
+
+export interface UpdateArticle {
+  slug: string | undefined
+  validData: {
+    article: {
+      title: string
+      description: string
+      body: string
+      tagList: string[]
+    }
+  }
 }

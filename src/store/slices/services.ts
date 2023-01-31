@@ -1,6 +1,6 @@
 import { createAsyncThunk } from '@reduxjs/toolkit'
 
-import { ArticlesState } from '../../interfaces/article'
+import { ArticlesState, CreateArticle, UpdateArticle } from '../../interfaces/article'
 import { UserState, PostDataCreateUser, PostDataLoginUser, PostDataUpdateUser } from '../../interfaces/user'
 
 const _defaultPath = 'https://blog.kata.academy/api'
@@ -20,6 +20,62 @@ export const fetchArticle = createAsyncThunk<ArticlesState, string | undefined, 
     const response = await fetch(`${_defaultPath}/articles/${slug}`)
     !response.ok && rejectWithValue('search article')
     return await response.json()
+  }
+)
+
+export const fetchCreateArticle = createAsyncThunk<ArticlesState, CreateArticle, { rejectValue: string }>(
+  'articles/fetchCreateArticle',
+  async function (validData, { rejectWithValue }) {
+    const token = localStorage.getItem('token')
+    const response = await fetch(`${_defaultPath}/articles`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify(validData),
+    })
+    if (!response.ok) {
+      return rejectWithValue('article not created')
+    }
+    return response.json()
+  }
+)
+
+export const fetchUpdateArticle = createAsyncThunk<void, UpdateArticle, { rejectValue: string }>(
+  'articles/fetchUpdateArticle',
+  async (slugData, { rejectWithValue }) => {
+    const token = localStorage.getItem('token')
+    const { slug } = slugData
+    const response = await fetch(`${_defaultPath}/articles/${slug}`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify(slugData.validData),
+    })
+    if (!response.ok) {
+      return rejectWithValue('Article not updated')
+    }
+    return await response.json()
+  }
+)
+
+export const fetchDeleteArticle = createAsyncThunk<void, string | undefined, { rejectValue: string }>(
+  'articles/fetchDeleteArticle',
+  async (slug, { rejectWithValue }) => {
+    const token = localStorage.getItem('token')
+    const response = await fetch(`${_defaultPath}/articles/${slug}`, {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
+    })
+    if (!response.ok) {
+      return rejectWithValue('Article not deleted')
+    }
   }
 )
 
@@ -88,7 +144,6 @@ export const fetchUpdateUser = createAsyncThunk<UserState, PostDataUpdateUser, {
     }
     const result = await response.json()
     localStorage.setItem('token', result.user.token)
-    console.log(result)
     return result
   }
 )

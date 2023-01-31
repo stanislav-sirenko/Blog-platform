@@ -33,6 +33,10 @@
         font-family: 'coffe';
         margin-top: 5px;
       }
+      .input:focus-visible {
+        outline: 3px solid #91caff;
+        outline-offset: 1px;
+      }
     }
 
     .error {
@@ -60,6 +64,10 @@
       transition: 1s;
       cursor: not-allowed;
     }
+    .btn:focus-visible {
+      outline: 3px solid #91caff;
+      outline-offset: 1px;
+    }
 
     .text {
       font-size: 12px;
@@ -68,6 +76,10 @@
       a {
         text-decoration: none;
         color: #1890ff;
+      }
+      a:focus-visible {
+        outline: 2px solid #91caff;
+        outline-offset: 1px;
       }
     }
   }
