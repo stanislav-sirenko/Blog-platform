@@ -9,6 +9,7 @@ import {
   fetchCreateArticle,
   fetchUpdateArticle,
   fetchDeleteArticle,
+  fetchLikeArticle,
 } from './services'
 
 const initialState: ArticlesState = {
@@ -111,6 +112,16 @@ const articleSlice = createSlice({
         state.status = false
         state.articles = action.payload.articles
         state.articlesCount = action.payload.articlesCount
+      })
+
+      .addCase(fetchLikeArticle.pending, (state) => {
+        state.error = null
+      })
+      .addCase(fetchLikeArticle.fulfilled, (state, action) => {
+        state.articles.map((article) => {
+          if (article.slug === action.payload.article.slug) article = action.payload.article
+          return article
+        })
       })
   },
 })

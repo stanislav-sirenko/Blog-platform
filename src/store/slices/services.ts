@@ -79,6 +79,25 @@ export const fetchDeleteArticle = createAsyncThunk<void, string | undefined, { r
   }
 )
 
+export const fetchLikeArticle = createAsyncThunk<
+  ArticlesState,
+  [favorited: boolean, slug: string | undefined],
+  { rejectValue: string }
+>('articles/fetchLikeArticle', async (slug, { rejectWithValue }) => {
+  const token = localStorage.getItem('token')
+  const response = await fetch(`${_defaultPath}/articles/${slug[1]}/favorite`, {
+    method: !slug[0] ? 'POST' : 'DELETE',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${token}`,
+    },
+  })
+  if (!response.ok) {
+    return rejectWithValue('Лайк не поставлен')
+  }
+  return await response.json()
+})
+
 export const fetchPageNumber = createAsyncThunk<ArticlesState, number, { rejectValue: string }>(
   'articles/fetchPageNumber',
   async function (pageNumber, { rejectWithValue }) {

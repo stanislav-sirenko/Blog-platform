@@ -1,13 +1,13 @@
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { useParams, Link, useNavigate } from 'react-router-dom'
-import { HeartTwoTone } from '@ant-design/icons'
+import { HeartFilled, HeartOutlined } from '@ant-design/icons'
 import { Space, Spin, Button, Popconfirm } from 'antd'
 import { format } from 'date-fns'
 import ReactMarkdown from 'react-markdown'
 
 import { togglePage } from '../../store/slices/articleSlice'
 import { useAppDispatch, useAppSelector } from '../../assets/hooks/hooksByTS'
-import { fetchArticle, fetchDeleteArticle } from '../../store/slices/services'
+import { fetchArticle, fetchDeleteArticle, fetchLikeArticle } from '../../store/slices/services'
 
 import classes from './SinglePage.module.scss'
 
@@ -15,6 +15,11 @@ const SinglePage: React.FC = () => {
   const { isAuth } = useAppSelector((state) => state.user)
   const { username } = useAppSelector((state) => state.user.user)
   const { status, deleted } = useAppSelector((state) => state.articles)
+  const { title, favoritesCount, favorited, tagList, body, description, author, updatedAt } = useAppSelector(
+    (state) => state.articles.article
+  )
+  const [like, setLike] = useState(favorited)
+  const [count, setCount] = useState(favoritesCount)
 
   const { slug } = useParams()
   const navigate = useNavigate()
@@ -22,7 +27,11 @@ const SinglePage: React.FC = () => {
 
   useEffect(() => {
     dispatch(fetchArticle(slug))
-  }, [slug])
+    if (favoritesCount || !favoritesCount) {
+      setLike(favorited)
+    }
+    setCount(favoritesCount)
+  }, [slug, favorited, favoritesCount])
 
   useEffect(() => {
     if (deleted) {
@@ -30,16 +39,10 @@ const SinglePage: React.FC = () => {
     }
   }, [deleted])
 
-  const { title, favoritesCount, tagList, body, description, author, updatedAt } = useAppSelector(
-    (state) => state.articles.article
-  )
-
   const confirm = () => {
     dispatch(fetchDeleteArticle(slug))
     dispatch(togglePage(1))
   }
-
-  // const cancel = () => {}
 
   return (
     <>
@@ -53,10 +56,28 @@ const SinglePage: React.FC = () => {
             <div className={classes['wrap']}>
               <span className={classes['title']}>{title}</span>
               <div className={classes['like-container']}>
-                <Space>
-                  <HeartTwoTone twoToneColor="red" style={{ cursor: 'pointer' }} />
-                </Space>
-                <span className={classes['counter']}>{favoritesCount}</span>
+                <button
+                  className={classes['like']}
+                  onClick={() => {
+                    setLike(!like)
+                    setCount(like ? count - 1 : count + 1)
+                    dispatch(fetchLikeArticle([like, slug]))
+                  }}
+                >
+                  {like && isAuth ? (
+                    <HeartFilled style={{ cursor: 'pointer', marginRight: '5px', fontSize: '16px', color: 'red' }} />
+                  ) : (
+                    <HeartOutlined
+                      style={{
+                        cursor: 'pointer',
+                        marginRight: '5px',
+                        fontSize: '16px',
+                        color: 'rgba(0, 0, 0, .75)',
+                      }}
+                    />
+                  )}
+                </button>
+                <span className={classes['counter']}>{count}</span>
               </div>
             </div>
             <ul className={classes['tag-list']} style={tagList.length ? { display: 'flex' } : { display: 'none' }}>
@@ -81,7 +102,6 @@ const SinglePage: React.FC = () => {
                   title="Delete the task"
                   description="Are you sure to delete this task?"
                   onConfirm={confirm}
-                  // onCancel={cancel}
                   okText="Yes"
                   cancelText="No"
                 >

@@ -1,8 +1,10 @@
-import { HeartTwoTone } from '@ant-design/icons'
-import { Space } from 'antd'
+import { useState } from 'react'
+import { HeartFilled, HeartOutlined } from '@ant-design/icons'
 import { format } from 'date-fns'
 import { Link } from 'react-router-dom'
 
+import { fetchLikeArticle } from '../../store/slices/services'
+import { useAppDispatch, useAppSelector } from '../../assets/hooks/hooksByTS'
 import { IArticle } from '../../interfaces/article'
 import avatar from '../../assets/images/Avatar.svg'
 
@@ -13,7 +15,11 @@ interface ArticleProps {
 }
 
 const Post: React.FC<ArticleProps> = ({ article }) => {
-  const { slug, title, favoritesCount, tagList, description, author, updatedAt } = article
+  const { slug, title, favoritesCount, tagList, description, author, updatedAt, favorited } = article
+  const { isAuth } = useAppSelector((state) => state.user)
+  const [like, setLike] = useState(favorited)
+  const [count, setCount] = useState(favoritesCount)
+  const dispatch = useAppDispatch()
 
   return (
     <section className={classes['card-container']}>
@@ -23,10 +29,28 @@ const Post: React.FC<ArticleProps> = ({ article }) => {
             {title?.length > 35 ? `${title.slice(0, 35)}…` : title}
           </Link>
           <div className={classes['like-container']}>
-            <Space>
-              <HeartTwoTone twoToneColor="red" style={{ cursor: 'pointer' }} />
-            </Space>
-            <span className={classes['counter']}>{favoritesCount}</span>
+            <button
+              className={classes['like']}
+              onClick={() => {
+                setLike(!like)
+                setCount(like ? count - 1 : count + 1)
+                dispatch(fetchLikeArticle([like, slug]))
+              }}
+            >
+              {like && isAuth ? (
+                <HeartFilled style={{ cursor: 'pointer', marginRight: '5px', fontSize: '16px', color: 'red' }} />
+              ) : (
+                <HeartOutlined
+                  style={{
+                    cursor: 'pointer',
+                    marginRight: '5px',
+                    fontSize: '16px',
+                    color: 'rgba(0, 0, 0, .75)',
+                  }}
+                />
+              )}
+            </button>
+            <span className={classes['counter']}>{count}</span>
           </div>
         </div>
         <ul className={classes['tag-list']} style={tagList.length ? { display: 'flex' } : { display: 'none' }}>

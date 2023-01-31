@@ -33,6 +33,11 @@
         display: flex;
         align-items: center;
 
+        .like {
+          border: none;
+          background: none;
+        }
+
         .counter {
           font-size: 12px;
           margin-left: 5px;
@@ -79,6 +84,7 @@
       .nicname {
         font-size: 18px;
         color: rgba(0, 0, 0, 0.85);
+        margin-bottom: 5px;
       }
       .data {
         color: rgba(0, 0, 0, 0.5);
