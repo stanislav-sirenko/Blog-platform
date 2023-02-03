@@ -18,11 +18,10 @@
     }
   },
   "lint-staged": {
-    "src/*.{js,jsx,ts,tsx}": [
-      "eslint --cache --fix",
-      "prettier --write",
+    "*.(js,jsx,ts,tsx)": [
       "npm run lint:fix",
-      "git add"
+      "npm run format",
+      "git add ."
     ]
   },
   "browserslist": {
