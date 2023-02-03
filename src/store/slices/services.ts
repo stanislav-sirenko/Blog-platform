@@ -148,7 +148,6 @@ export const fetchAuthorizationUser = createAsyncThunk<UserState, PostDataLoginU
 export const fetchUpdateUser = createAsyncThunk<UserState, PostDataUpdateUser, { rejectValue: string }>(
   'user/fetchUpdateUser',
   async (validData, { rejectWithValue }) => {
-    console.log(validData)
     const token = localStorage.getItem('token')
     const response = await fetch(`${_defaultPath}/user`, {
       method: 'PUT',
