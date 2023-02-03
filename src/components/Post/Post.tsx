@@ -36,6 +36,7 @@ const Post: React.FC<ArticleProps> = ({ article }) => {
                 setCount(like ? count - 1 : count + 1)
                 dispatch(fetchLikeArticle([like, slug]))
               }}
+              disabled={!isAuth}
             >
               {like && isAuth ? (
                 <HeartFilled style={{ cursor: 'pointer', marginRight: '5px', fontSize: '16px', color: 'red' }} />
