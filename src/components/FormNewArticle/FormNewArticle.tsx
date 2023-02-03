@@ -6,7 +6,7 @@ import { Button } from 'antd'
 
 import { IFormNewArticle, ProfileNewArticle } from '../../interfaces/article'
 import { useAppSelector, useAppDispatch } from '../../assets/hooks/hooksByTS'
-import { togglePage } from '../../store/slices/articleSlice'
+import { togglePage } from '../../store/slices/article-slice'
 import { fetchCreateArticle, fetchUpdateArticle } from '../../store/slices/services'
 
 import classes from './FormNewArticle.module.scss'

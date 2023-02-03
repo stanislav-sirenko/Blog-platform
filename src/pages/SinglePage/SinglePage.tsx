@@ -5,7 +5,7 @@ import { Space, Spin, Button, Popconfirm } from 'antd'
 import { format } from 'date-fns'
 import ReactMarkdown from 'react-markdown'
 
-import { togglePage } from '../../store/slices/articleSlice'
+import { togglePage } from '../../store/slices/article-slice'
 import { useAppDispatch, useAppSelector } from '../../assets/hooks/hooksByTS'
 import { fetchArticle, fetchDeleteArticle, fetchLikeArticle } from '../../store/slices/services'
 

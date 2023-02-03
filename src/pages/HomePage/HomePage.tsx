@@ -1,7 +1,7 @@
 import { useEffect } from 'react'
 import { Pagination, Space, Spin } from 'antd'
 
-import { togglePage } from '../../store/slices/articleSlice'
+import { togglePage } from '../../store/slices/article-slice'
 import { fetchArticles, fetchPageNumber } from '../../store/slices/services'
 import Post from '../../components/Post/Post'
 import { useAppDispatch, useAppSelector } from '../../assets/hooks/hooksByTS'

@@ -1,8 +1,8 @@
 import { Link, Outlet } from 'react-router-dom'
 
-import { togglePage } from '../../store/slices/articleSlice'
+import { togglePage } from '../../store/slices/article-slice'
 import { fetchPageNumber } from '../../store/slices/services'
-import { logOut } from '../../store/slices/userSlice'
+import { logOut } from '../../store/slices/user-slice'
 import { useAppDispatch, useAppSelector } from '../../assets/hooks/hooksByTS'
 import defaultAvatar from '../../assets/images/Avatar.svg'
 
