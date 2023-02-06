@@ -1,28 +1,16 @@
 {
-  "name": "aviasales",
+  "name": "blog-platform",
   "version": "0.1.0",
   "private": true,
   "scripts": {
     "build": "react-scripts build",
     "eject": "react-scripts eject",
-    "format": "prettier --write src/**/*.js",
+    "format": "prettier --write 'src/**/*.{js,jsx,ts,tsx}'",
     "lint": "eslint src/",
     "lint:fix": "eslint src/ --fix --color",
     "prepare": "husky install",
     "start": "react-scripts start",
     "test": "react-scripts test"
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "lint-staged"
-    }
-  },
-  "lint-staged": {
-    "src/*.{js,jsx,ts,tsx}": [
-      "npm run lint:fix",
-      "npm run format",
-      "git add ."
-    ]
   },
   "browserslist": {
     "production": [
