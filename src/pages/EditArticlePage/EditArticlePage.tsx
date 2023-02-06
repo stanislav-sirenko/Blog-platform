@@ -9,7 +9,7 @@ const EditArticlePage: React.FC = () => {
   const { article } = useAppSelector((state) => state.articles)
   const { slug } = useParams()
   console.log(slug)
-  const x = 'dasnh'
+  const x = 'dasnhdsa'
   return (
     <section className={classes['container']}>
       <FormNewArticle
