@@ -1,0 +1,128 @@
+@font-face {
+  font-family: "Coffe";
+  src: url("../../assets/fonts/Coffe-Break.ttf");
+}
+body {
+  margin: 0;
+  padding: 0;
+  font-family: "Coffe";
+}
+body header {
+  font-family: "Coffe";
+  height: 80px;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 18px;
+}
+body header .home__btn {
+  font-size: 18px;
+  text-decoration: none;
+  color: rgba(0, 0, 0, 0.85);
+  border: none;
+  background-color: #fff;
+  width: 120px;
+  cursor: pointer;
+  margin: 15px 15px;
+  padding: 15px 20px;
+  transition: 0.7s;
+  border-radius: 5px;
+}
+body header .home__btn:hover {
+  border: 0.3px solid #52c41a;
+  border-radius: 5px;
+  color: #52c41a;
+  transition: 0.7s;
+}
+body header .sign-in__btn,
+body header .sign-up__btn {
+  font-size: 18px;
+  text-decoration: none;
+  color: rgba(0, 0, 0, 0.85);
+  border: none;
+  background-color: #fff;
+  width: 120px;
+  cursor: pointer;
+  margin: 15px 15px;
+  padding: 15px 20px;
+  transition: 0.7s;
+  border-radius: 5px;
+}
+body header .sign-in__btn:hover,
+body header .sign-up__btn:hover {
+  border: 0.5px solid #52c41a;
+  border-radius: 5px;
+  color: #52c41a;
+  transition: 0.7s;
+}
+body header .is-login {
+  display: flex;
+  align-items: center;
+}
+body header .is-login .create {
+  color: #52c41a;
+  border: 1px solid #52c41a;
+  border-radius: 5px;
+  text-decoration: none;
+  padding: 10px 15px;
+  font-size: 14px;
+  transition: 1s;
+}
+body header .is-login .create:hover {
+  color: #f1b211;
+  border-color: #f1b211;
+  transition: 1s;
+  scale: 1.1;
+}
+body header .is-login .profile {
+  font-size: 18px;
+  text-decoration: none;
+  color: rgba(0, 0, 0, 0.85);
+  border: none;
+  width: 120px;
+  cursor: pointer;
+  padding: 15px 20px;
+  transition: 0.7s;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+body header .is-login .profile .avatar {
+  margin: 0 13px;
+  border-radius: 50%;
+  max-width: 46px;
+  max-height: 46px;
+}
+body header .is-login .profile:hover {
+  color: tomato;
+}
+body header .is-login .log-out {
+  font-size: 18px;
+  border: 1px solid rgba(0, 0, 0, 0.75);
+  border-radius: 5px;
+  text-decoration: none;
+  color: rgba(0, 0, 0, 0.85);
+  background-color: #fff;
+  width: 120px;
+  cursor: pointer;
+  margin: 15px 22px 15px 5px;
+  text-align: center;
+  padding: 15px 0;
+  transition: 0.7s;
+}
+body header .is-login .log-out:hover {
+  border: 1px solid #52c41a;
+  border-radius: 5px;
+  color: #52c41a;
+  transition: 0.7s;
+}
+body main {
+  background-color: #ebeef3;
+  width: 100%;
+  min-height: 100vh;
+  margin: 0;
+  padding-top: 50px;
+  font-family: "Coffe";
+  text-align: -webkit-center;
+}

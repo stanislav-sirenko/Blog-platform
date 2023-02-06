@@ -1,0 +1,94 @@
+.container {
+  display: flex;
+  justify-content: center;
+}
+.container .form {
+  background-color: #fff;
+  border-radius: 5px;
+  box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.1);
+  flex-grow: 1;
+  max-width: 350px;
+  padding: 50px 30px;
+}
+.container .form .sign-up {
+  font-size: 20px;
+  font-weight: 600;
+  margin-top: 9px;
+  text-align: center;
+  color: #262626;
+}
+.container .form .label {
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+  margin: 20px 0 5px 0;
+  color: #262626;
+  font-size: 14px;
+}
+.container .form .label .input {
+  border: 1px solid #d9d9d9;
+  border-radius: 5px;
+  padding: 12px;
+  font-family: "coffe";
+  margin-top: 5px;
+}
+.container .form .label .input:focus-visible {
+  outline: 3px solid #91caff;
+  outline-offset: 1px;
+}
+.container .form .error {
+  color: tomato;
+  font-size: 14px;
+}
+.container .form .wrap-checkbox {
+  display: flex;
+  align-items: flex-start;
+  margin-top: 20px;
+  padding: 12px 9px;
+}
+.container .form .wrap-checkbox label {
+  margin: 0;
+  color: #595959;
+  line-height: 22px;
+  text-align: left;
+  font-size: 14px;
+}
+.container .form .wrap-checkbox .checkbox {
+  background-color: #262626;
+  margin: 3px 8px 0 0;
+}
+.container .form .wrap-checkbox .checkbox:focus-visible {
+  outline: 3px solid #91caff;
+  outline-offset: 1px;
+}
+.container .form .btn {
+  background-color: #1890ff;
+  border: none;
+  border-radius: 5px;
+  color: #fff;
+  cursor: pointer;
+  font-size: 16px;
+  margin: 20px 0 12px 0;
+  padding: 10px;
+  width: 100%;
+  font-family: "coffe";
+  transition: 1s;
+  cursor: pointer;
+}
+.container .form .btn:disabled {
+  opacity: 0.5;
+  transition: 1s;
+  cursor: not-allowed;
+}
+.container .form .text {
+  font-size: 12px;
+  color: #8c8c8c;
+}
+.container .form .text a {
+  text-decoration: none;
+  color: #1890ff;
+}
+.container .form .text a:focus-visible {
+  outline: 2px solid #91caff;
+  outline-offset: 1px;
+}
