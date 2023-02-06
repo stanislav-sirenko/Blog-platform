@@ -8,8 +8,6 @@ import classes from './EditArticlePage.module.scss'
 const EditArticlePage: React.FC = () => {
   const { article } = useAppSelector((state) => state.articles)
   const { slug } = useParams()
-  console.log(slug)
-  const x = 'dasnhd'
   return (
     <section className={classes['container']}>
       <FormNewArticle
